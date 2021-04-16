@@ -1,34 +1,20 @@
-pragma solidity >0.4.24;
+pragma solidity >=0.7.0;
 
-import "../node_modules/openzeppelin-solidity/contracts/token/ERC20/StandardToken.sol";  
-import "../node_modules/openzeppelin-solidity/contracts/ownership/Ownable.sol";  
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 /**  
 * @title BearToken is a basic ERC20 Token  
 */  
 
-contract BearToken is StandardToken, Ownable{
+contract BearToken is ERC20, Ownable{
+
+    /**
+    * @dev assign totalSupply to account creating this contract
+    */
     
-    uint256 public totalSupply;  
-    string public name;  
-    string public symbol;  
-    uint32 public decimals;
-
-    /**  * @dev assign totalSupply to account creating this contract */
-
-    constructor() public {
-        
-        symbol = "BEAR";  
-        name = "BearToken";  
-        decimals = 5;  
-        totalSupply = 100000000000;
-
-        owner = msg.sender;  
-        balances[msg.sender] = totalSupply;
-
-        emit Transfer(0x0, msg.sender, totalSupply);
-
-    }   
-
-} 
-
+    constructor()  ERC20("BearToken","CUB"){
+        _setupDecimals(5);
+        _mint(msg.sender, 100000000000);
+    }
+}
